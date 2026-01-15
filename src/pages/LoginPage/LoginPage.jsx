@@ -4,13 +4,14 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { useNavigate } from "react-router-dom";
 import "../../styles/LoginRetroXP.css"; // ⭐ XP CSS
 import axios from "axios";
-import { newContext } from "../../UseContext";
+import UseContext, { newContext } from "../../UseContext";
 
 const LoginPage = () => {
-  
 
+  
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
+
   // const [userId, setuserId] = useState(null)
 
   const navigate = useNavigate();
@@ -27,8 +28,6 @@ const LoginPage = () => {
     console.log(response.data.user);
 
     const userData = response.data.user;
-
-    
 
     localStorage.setItem("userdata", JSON.stringify(userData));
 

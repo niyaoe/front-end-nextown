@@ -22,7 +22,8 @@ import NotificationSettings from "./components/NotificationSettings";
 import PrivacySecurity from "./components/PrivacySecurity";
 import AppPreferences from "./components/AppPreferences";
 import SignUp from "./pages/SignUp/SignUp";
-import UseContext from "./useContext";
+import UseContext from "./UseContext";
+
 
 function App() {
   const [MainLogin, setMainLogin] = useState(false);

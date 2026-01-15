@@ -4,7 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import profileImg from "../assets/dp.png";
 import "../styles/ProfilePageXP.css"; // XP THEME CSS
 
-import axios from "axios";
+// import axios from "axios";
+
 import { newContext } from "../UseContext";
 
 const ProfilePage = () => {
@@ -15,11 +16,12 @@ const ProfilePage = () => {
   // const [Name, setName] = useState("");
   
   console.log("userData from Profilepage :", userData);
+
   // const idOnly = userData.userData._Id;
   // console.log("id from profilePage",idOnly);
+
   let Name = userData.userData.Name
   
-
 
   // const profileFunction = async () => {
   //   const profileData = await axios.get(
@@ -29,9 +31,11 @@ const ProfilePage = () => {
   //   setName(profileData.data.Name);
   // };
 
+
   // useEffect(() => {
   //   profileFunction();
   // }, []);
+
 
   return (
     <div className="xp-wrapper">

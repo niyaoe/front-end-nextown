@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../styles/myreport.css"; // 👈 Windows XP theme stylesheet
+import { newContext } from "../UseContext";
 
 const MyReport = () => {
+
+  const userData = useContext(newContext);
+  let Name = userData.userData.Name
+
+
   return (
     <div className="xp-bg" style={{ minHeight: "100vh",marginTop:"50px"}}>
       <div className="container py-4 mb-5">
 
         {/* Welcome Section */}
         <div className="text-start mb-4">
-          <h4 className="fw-semibold xp-heading">Welcome, NIYAS!</h4>
+          <h4 className="fw-semibold xp-heading">Welcome, {Name}!</h4>
           <p className="xp-subtext">Here’s how your reports are performing today.</p>
         </div>
 

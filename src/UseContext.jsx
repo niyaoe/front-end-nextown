@@ -1,29 +1,26 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useState } from "react";
 
-const newContext = createContext()
+const newContext = createContext();
 
-const UseContext = ({children}) => {
+const UseContext = ({ children }) => {
+  const [userData, setuserData] = useState({});
+  
 
-    const [userData, setuserData] = useState({}) 
+  
 
-    useEffect(() => {
-     var udata = JSON.parse(localStorage.getItem("userdata"))
-     console.log("udata : ",udata);
-     
-     setuserData(udata)
+  useEffect(() => {
+    var udata = JSON.parse(localStorage.getItem("userdata"));
+    setuserData(udata);
+    console.log("udata : ", udata);
+  },[]);
 
-    }, [])
-    
-    
   return (
     <div>
-        <newContext.Provider value={{userData}}  >
-        {children}
-        </newContext.Provider>
+      <newContext.Provider value={{ userData }}>{children}</newContext.Provider>
     </div>
-  )
-}
+  );
+};
 
-export {newContext}
+export { newContext };
 
-export default UseContext
+export default UseContext;
