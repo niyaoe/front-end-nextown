@@ -91,7 +91,7 @@ const NewNavbar = () => {
                 Settings
               </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item as={NavLink} to="/logout">
+              <NavDropdown.Item as={NavLink} to="/">
                 Logout
               </NavDropdown.Item>
             </NavDropdown>

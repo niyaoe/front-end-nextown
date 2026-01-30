@@ -1,6 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import "../styles/AccountInfoXP.css"; // ⭐ XP THEME
 
 export default function AccountInfo() {
+
+  const navigate = useNavigate()
+
+  const Logout = () =>{
+    navigate("/")
+  }
   return (
     <div className="xp-account-card">
 
@@ -49,7 +56,7 @@ export default function AccountInfo() {
 
         <div className="mt-4 d-flex gap-2">
           <button className="xp-account-btn-save">Save Changes</button>
-          <button className="xp-account-btn-logout">Logout</button>
+          <button onClick={Logout} className="xp-account-btn-logout">Logout</button>
         </div>
       </form>
     </div>
