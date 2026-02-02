@@ -57,6 +57,7 @@ export default function AccountInfo() {
         <div className="mt-4 d-flex gap-2">
           <button className="xp-account-btn-save">Save Changes</button>
           <button onClick={Logout} className="xp-account-btn-logout">Logout</button>
+          
         </div>
       </form>
     </div>

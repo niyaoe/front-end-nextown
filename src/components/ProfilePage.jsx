@@ -3,39 +3,43 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import profileImg from "../assets/dp.png";
 import "../styles/ProfilePageXP.css"; // XP THEME CSS
-
-// import axios from "axios";
+import axios from "axios";
 
 import { newContext } from "../UseContext";
 
 const ProfilePage = () => {
-
   const userData = useContext(newContext);
   const navigate = useNavigate();
 
-  // const [Name, setName] = useState("");
-  
+  const [profilePhoto, setProfilePhoto] = useState(
+  userData.userData.profilePhoto || profileImg
+);
+
+
   console.log("userData from Profilepage :", userData);
 
-  // const idOnly = userData.userData._Id;
-  // console.log("id from profilePage",idOnly);
+  let Name = userData.userData.Name;
 
-  let Name = userData.userData.Name
-  
+  const handleProfileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-  // const profileFunction = async () => {
-  //   const profileData = await axios.get(
-  //     `http://localhost:5005/auth/users/${idOnly}`
-  //   );
-  //   console.log("profile function", profileData.data.Name);
-  //   setName(profileData.data.Name);
-  // };
+    const formData = new FormData();
+    formData.append("profilePhoto", file);
 
+    const profilePic = await axios.post(
+      "http://localhost:5005/auth/uploadprofilephoto",
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${userData._token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      },
+    );
 
-  // useEffect(() => {
-  //   profileFunction();
-  // }, []);
-
+    console.log("profilePic ; ", profilePic.data.user.profilePhoto);
+  };
 
   return (
     <div className="xp-wrapper">
@@ -48,14 +52,24 @@ const ProfilePage = () => {
         <div className="ms-3">
           <h4 className="xp-name">{Name}</h4>
           <p className="xp-username">@{Name}</p>
-          <button
-            onClick={() => {
-              navigate("/settings/account");
+          <input
+            type="file"
+            id="avatarUpload"
+            accept="image/*"
+            hidden
+            onChange={handleProfileChange}
+          />
+
+          <label
+            htmlFor="avatarUpload"
+            style={{
+              cursor: "pointer",
+              color: "#2563eb",
+              fontWeight: "600",
             }}
-            className="xp-btn-editprofile"
           >
-            Edit Profile
-          </button>
+            Edit avatar
+          </label>
         </div>
       </div>
 

@@ -6,6 +6,8 @@ import { newContext } from "../UseContext";
 
 const MyReport = () => {
 
+
+
   const userData = useContext(newContext);
   let Name = userData.userData.Name
 
@@ -146,13 +148,15 @@ const MyReport = () => {
           {/* Right Form Section */}
           <div className="col-lg-4 col-md-12">
             <div className="card xp-card p-3">
-
+            <form>
+              
               <div className="text-center xp-photo-box p-4 mb-3">
                 <i className="bi bi-image fs-1 text-primary"></i>
-                <p className="small xp-subtext mt-2 mb-0">Add Photo</p>
+                {/* <p className="small xp-subtext mt-2 mb-0">Add Photo</p> */}
+                <input type="file" />
               </div>
 
-              <form>
+              
                 <div className="mb-3">
                   <input type="text" className="form-control xp-input" placeholder="Title" />
                 </div>
