@@ -12,34 +12,48 @@ const ProfilePage = () => {
   const navigate = useNavigate();
 
   const [profilePhoto, setProfilePhoto] = useState(
-  userData.userData.profilePhoto || profileImg
-);
+    userData.userData.profilePhoto || profileImg,
+  );
 
-
-  console.log("userData from Profilepage :", userData);
+  console.log("userData id :", userData._id);
 
   let Name = userData.userData.Name;
 
-  const handleProfileChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
 
-    const formData = new FormData();
-    formData.append("profilePhoto", file);
+  //api section single user =======
 
-    const profilePic = await axios.post(
-      "http://localhost:5005/auth/uploadprofilephoto",
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${userData._token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      },
+  useEffect(() => {
+    singleUserpProfile();
+  }, []);
+
+
+  const singleUserpProfile = async () => {
+    const singleUser = await axios.get(
+      `http://localhost:5005/auth/users/${userData._id}`,
     );
-
-    console.log("profilePic ; ", profilePic.data.user.profilePhoto);
   };
+
+  
+  // const handleProfileChange = async (e) => {
+  //   const file = e.target.files[0];
+  //   if (!file) return;
+
+  //   const formData = new FormData();
+  //   formData.append("profilePhoto", file);
+
+  //   const profilePic = await axios.post(
+  //     "http://localhost:5005/auth/uploadprofilephoto",
+  //     formData,
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${userData._token}`,
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     },
+  //   );
+
+  //   console.log("profilePic ; ", profilePic.data.user.profilePhoto);
+  // };
 
   return (
     <div className="xp-wrapper">
@@ -57,7 +71,7 @@ const ProfilePage = () => {
             id="avatarUpload"
             accept="image/*"
             hidden
-            onChange={handleProfileChange}
+            // onChange={handleProfileChange}
           />
 
           <label

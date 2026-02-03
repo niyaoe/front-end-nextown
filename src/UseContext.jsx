@@ -5,14 +5,14 @@ const newContext = createContext();
 const UseContext = ({ children }) => {
   const [userData, setuserData] = useState({});
   
-
-  
-
   useEffect(() => {
     var udata = JSON.parse(localStorage.getItem("userdata"));
     setuserData(udata);
     console.log("udata : ", udata);
   },[]);
+
+  console.log("userData(usestate) from useContext : ",userData);
+  
 
   return (
     <div>

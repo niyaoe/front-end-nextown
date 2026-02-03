@@ -25,7 +25,7 @@ const LoginPage = () => {
       Email,
       Password,
     });
-    console.log(response.data.user);
+    console.log("response from login : ",response.data.user);
 
     const userData = response.data.user;
 
