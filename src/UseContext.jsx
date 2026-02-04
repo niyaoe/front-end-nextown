@@ -8,10 +8,10 @@ const UseContext = ({ children }) => {
   useEffect(() => {
     var udata = JSON.parse(localStorage.getItem("userdata"));
     setuserData(udata);
-    console.log("udata : ", udata);
+    // console.log("udata : ", udata);
   },[]);
 
-  console.log("userData(usestate) from useContext : ",userData);
+  // console.log("userData(usestate) from useContext : ",userData);
   
 
   return (

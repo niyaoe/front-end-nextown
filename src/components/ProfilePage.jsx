@@ -11,67 +11,73 @@ const ProfilePage = () => {
   const userData = useContext(newContext);
   const navigate = useNavigate();
 
-  const [profilePhoto, setProfilePhoto] = useState(
-    userData.userData.profilePhoto || profileImg,
-  );
+  const [Dp, setDp] = useState(profileImg);
+  const [User, setUser] = useState(null);
 
-  console.log("userData id :", userData._id);
+  let token = localStorage.getItem("token");
 
-  let Name = userData.userData.Name;
-
+  console.log(token);
 
   //api section single user =======
 
   useEffect(() => {
-    singleUserpProfile();
+    profileFunction();
   }, []);
 
+  const profileFunction = async () => {
+    const userDetails = await axios.get("http://localhost:5005/auth/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  const singleUserpProfile = async () => {
-    const singleUser = await axios.get(
-      `http://localhost:5005/auth/users/${userData._id}`,
-    );
+    const user = userDetails.data.user;
+    setUser(user);
+
+    if (user.profilePhoto) {
+      setDp(`http://localhost:5005${user.profilePhoto}`);
+    }
   };
 
-  
-  // const handleProfileChange = async (e) => {
-  //   const file = e.target.files[0];
-  //   if (!file) return;
+  //profile pic update =====
 
-  //   const formData = new FormData();
-  //   formData.append("profilePhoto", file);
+  const handleProfileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-  //   const profilePic = await axios.post(
-  //     "http://localhost:5005/auth/uploadprofilephoto",
-  //     formData,
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${userData._token}`,
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     },
-  //   );
+    const formData = new FormData();
+    formData.append("profilePhoto", file);
 
-  //   console.log("profilePic ; ", profilePic.data.user.profilePhoto);
-  // };
+    const profilePic = await axios.post(
+      "http://localhost:5005/auth/uploadprofilephoto",
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      },
+    );
+    setDp(`http://localhost:5005${profilePic.data.user.profilePhoto}`);
+  };
 
   return (
     <div className="xp-wrapper">
       {/* ===== PROFILE HEADER ROW (INSTAGRAM STYLE) ===== */}
       <div className="container xp-profile-header d-flex align-items-center">
         {/* Profile Image */}
-        <img src={profileImg} alt="Profile" className="xp-profile-photo" />
+        <img src={Dp} alt="Profile" className="xp-profile-photo" />
 
         {/* Name + Username */}
         <div className="ms-3">
-          <h4 className="xp-name">{Name}</h4>
-          <p className="xp-username">@{Name}</p>
+          <h4 className="xp-name">{User?.Name}</h4>
+          <p className="xp-username">@{User?.Name}</p>
           <input
             type="file"
             id="avatarUpload"
             accept="image/*"
             hidden
-            // onChange={handleProfileChange}
+            onChange={handleProfileChange}
           />
 
           <label

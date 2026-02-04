@@ -25,10 +25,10 @@ const LoginPage = () => {
       Email,
       Password,
     });
-    console.log("response from login : ",response.data.user);
+    console.log("response from login : ",response.data.user._token);
 
     const userData = response.data.user;
-
+    localStorage.setItem("token",response.data.user._token)
     localStorage.setItem("userdata", JSON.stringify(userData));
 
     if (response.status === 200) {
