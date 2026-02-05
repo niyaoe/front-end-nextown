@@ -3,13 +3,40 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../styles/myreport.css"; // 👈 Windows XP theme stylesheet
 import { newContext } from "../UseContext";
+import { useEffect } from "react";
+import { useState } from "react";
+import axios from "axios";
 
 const MyReport = () => {
 
+  // const userData = useContext(newContext);
+  // let Name = userData.userData.Name
+
+  const [User, setUser] = useState(null)
+
+  let token = localStorage.getItem("token");
+
+  useEffect(() => {
+    ProfileFunction()
+  }, [])
+  
+
+  const ProfileFunction = async () =>{
+    const profileData = await axios.get("http://localhost:5005/auth/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const user = profileData.data.user;
+    setUser(user);
+    
+    
+  }
 
 
-  const userData = useContext(newContext);
-  let Name = userData.userData.Name
+  
+
 
 
   return (
@@ -18,7 +45,7 @@ const MyReport = () => {
 
         {/* Welcome Section */}
         <div className="text-start mb-4">
-          <h4 className="fw-semibold xp-heading">Welcome, {Name}!</h4>
+          <h4 className="fw-semibold xp-heading">Welcome, {User?.Name}!</h4>
           <p className="xp-subtext">Here’s how your reports are performing today.</p>
         </div>
 

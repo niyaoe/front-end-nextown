@@ -6,6 +6,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const NewNavbar = () => {
   const navigate = useNavigate();
 
+  const logout = () =>{
+    localStorage.removeItem("token")
+    navigate("/")
+
+  }
+
   return (
     <>
       {/* 🖥️ Desktop XP Toolbar */}
@@ -91,7 +97,7 @@ const NewNavbar = () => {
                 Settings
               </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item as={NavLink} to="/">
+              <NavDropdown.Item onClick={logout}>
                 Logout
               </NavDropdown.Item>
             </NavDropdown>
